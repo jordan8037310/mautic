@@ -231,8 +231,9 @@ class CompanyModel extends CommonFormModel implements AjaxLookupModelInterface
                 if (array_key_exists($alias, $data)) {
                     $curValue = $field['value'];
                     $newValue = $data[$alias];
+                    $newValueLength = (is_array($newValue) ? count($newValue) : strlen($newValue));
 
-                    if ($curValue !== $newValue && (strlen($newValue) > 0 || (strlen($newValue) === 0 && $overwriteWithBlank))) {
+                    if ($curValue !== $newValue && ($newValueLength > 0 || ($newValueLength === 0 && $overwriteWithBlank))) {
                         $field['value'] = $newValue;
                         $company->addUpdatedField($alias, $newValue, $curValue);
                     }
